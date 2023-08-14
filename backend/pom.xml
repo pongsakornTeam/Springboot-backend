@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.0.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>template</groupId>
+	<artifactId>backend</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>backend</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+			<version>3.1.2</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>template</groupId>
+			<artifactId>printer</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>learning</groupId>
+			<artifactId>template.backend</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>template</groupId>
+			<artifactId>common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+	<profiles>
+		<profile>
+			<id>local</id>
+			<build>
+				<finalName>food</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<!--					<port>8081</port>-->
+							<excludes>
+								<exclude>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+								</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>3.1.0</version>
+					</plugin>
+				</plugins>
+
+				<!--STEP 3 -->
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+				<!-- STEP 4 -->
+				<filters>
+					<filter>src/main/resources/application.${build.profile.id}.properties</filter>
+				</filters>
+
+			</build>
+			<!-- STEP 2 -->
+			<properties>
+				<activatedProperties>local</activatedProperties>
+				<build.profile.id>local</build.profile.id>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>dev</id>
+			<build>
+				<finalName>food</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<!--					<port>8081</port>-->
+							<excludes>
+								<exclude>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+								</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>3.1.0</version>
+					</plugin>
+				</plugins>
+
+				<!--STEP 3 -->
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+				<!-- STEP 4 -->
+				<filters>
+					<filter>src/main/resources/application.${build.profile.id}.properties</filter>
+				</filters>
+
+			</build>
+			<!-- STEP 2 -->
+			<properties>
+				<activatedProperties>dev</activatedProperties>
+				<build.profile.id>dev</build.profile.id>
+			</properties>
+		</profile>
+
+		<profile>
+			<id>sit</id>
+			<build>
+				<finalName>food</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<!--					<port>8081</port>-->
+							<excludes>
+								<exclude>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+								</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>3.1.0</version>
+					</plugin>
+				</plugins>
+
+				<!--STEP 3 -->
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+				<!-- STEP 4 -->
+				<filters>
+					<filter>src/main/resources/application.${build.profile.id}.properties</filter>
+				</filters>
+
+			</build>
+			<properties>
+				<activatedProperties>sit</activatedProperties>
+				<build.profile.id>sit</build.profile.id>
+			</properties>
+		</profile>
+		
+		<profile>
+			<id>uat</id>
+			<build>
+				<finalName>food</finalName>
+				<plugins>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<!--					<port>8081</port>-->
+							<excludes>
+								<exclude>
+									<groupId>org.projectlombok</groupId>
+									<artifactId>lombok</artifactId>
+								</exclude>
+							</excludes>
+						</configuration>
+					</plugin>
+
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-resources-plugin</artifactId>
+						<version>3.1.0</version>
+					</plugin>
+				</plugins>
+
+				<!--STEP 3 -->
+				<resources>
+					<resource>
+						<directory>src/main/resources</directory>
+						<filtering>true</filtering>
+					</resource>
+				</resources>
+				<!-- STEP 4 -->
+				<filters>
+					<filter>src/main/resources/application.${build.profile.id}.properties</filter>
+				</filters>
+
+			</build>
+			<properties>
+				<activatedProperties>uat</activatedProperties>
+				<build.profile.id>uat</build.profile.id>
+			</properties>
+		</profile>
+	</profiles>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
